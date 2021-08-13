@@ -15,7 +15,7 @@ class UserManager(models.Manager):
             errors["password"] = "Password must be at least 8 characters"
         elif postData["password"] != postData["password_confirm"]:
             errors["password_confirm"] = "Passwords do not match"
-        elif not EMAIL_REGEX.match(postData["email"]):           
+        if not EMAIL_REGEX.match(postData["email"]):           
             errors["email"] = "Email address not valid"
         elif len(existing_email) > 0:
             errors["duplicate_email"] = "Email already registered"
@@ -37,16 +37,13 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
-
-    #user_messages
-    #user_comments
+    #books_uploaded
+    #books_favorited
     def __repr__(self):
-        messages = ""
-        comments = ""
-        if len(self.user_messages.all()) > 0:
-            for i in self.user_messages.all():
-                messages += i.message + ","
-        if len(self.user_comments.all()) > 0:
-            for i in self.user_comments.all():
-                comments += i.comment + ","
-        return f"Users: Id = {self.id}, First Name = {self.first_name}, Last Name = {self.last_name}, Email = {self.email}, Password = {self.password}, Messages = {messages}, Comments = {comments}"
+        uploaded_books = ""
+        favorited_books = ""
+        for book in self.books_uploaded.all():
+            uploaded_books += book.title + ","
+        for book in self.books_favorited.all():
+            favorited_books += book.title + ","
+        return f"Users: Id = {self.id}, First Name = {self.first_name}, Last Name = {self.last_name}, Email = {self.email}, Password = {self.password}, Uploaded Books = {uploaded_books}, Favorited Books = {favorited_books}"

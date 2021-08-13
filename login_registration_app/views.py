@@ -22,7 +22,7 @@ def register(request): #POST REQUEST
             pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
             user_id = User.objects.create(first_name = request.POST["first_name"], last_name = request.POST["last_name"], email = request.POST['email'], password=pw_hash)
             request.session['user_id'] = user_id.id
-    return redirect("/books")
+    return redirect("/book")
 
 def login(request): #POST REQUEST
     errors = User.objects.login_validator(request.POST)
@@ -35,7 +35,7 @@ def login(request): #POST REQUEST
         logged_user = user[0] 
         if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
             request.session["user_id"] = logged_user.id
-            return redirect("/books")
+            return redirect("/book")
         return redirect("/")
     elif request.method != "POST":
         return redirect("/")
