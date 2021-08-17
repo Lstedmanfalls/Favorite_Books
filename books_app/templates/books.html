@@ -64,6 +64,14 @@
                     {% endfor %}
                 </div>
             </div>
+            <div>
+                <h1>All Users</h1>
+                {% for user in all_the_users %}
+                <div>
+                    <a href= "user/{{user.id}}"><h2>{{user.first_name}} {{user.last_name}}</h2></a>
+                    {% endfor %}
+                </div>
+            </div>
     </div>
 </body>
 </html>

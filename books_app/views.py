@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from .models import Book, User
+from django.db.models import Sum
 
 def book(request): #GET REQUEST
     if "user_id" not in request.session:
@@ -8,6 +9,7 @@ def book(request): #GET REQUEST
         return redirect ("/")
     else:
         context = {
+        "all_the_users": User.objects.all(),
         "this_user": User.objects.get(id=request.session["user_id"]),
         "all_the_books": Book.objects.all(),
     }
@@ -98,3 +100,15 @@ def destroy_book(request, book_id): #POST Request
         a_book = Book.objects.get(id = book_id)
         a_book.delete()
     return redirect("/book")
+
+def user_page(request, user_id): #GET REQUEST
+    this_user = User.objects.get(id = user_id)
+    uploaded_books = this_user.books_uploaded.all()
+    book_count = uploaded_books.count()
+    context = {
+        "this_user": this_user,
+        "favorited_books": this_user.books_favorited.all(),
+        "uploaded_books":uploaded_books,
+        "book_count": book_count,
+    }
+    return render(request, "user_page.html", context)
