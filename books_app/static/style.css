@@ -1,0 +1,39 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+#wrapper{
+    padding:1rem 3rem;
+}
+
+html{
+    font-size:10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+}
+
+nav > p{
+    font-size:3rem;
+    font-weight: bold;
+}
+
+nav button, nav a, #quotable_quotes a, #favorite_quotes a, .edit button{
+    text-decoration: underline;
+    color:blue;
+    border:none;
+    font-size:1.5rem;
+    background-color: transparent;
+}
+
+#nav_actions{
+    display: flex;
+} 
+
+nav a{
+    padding-right:2rem;
+}

@@ -11,21 +11,13 @@
 </head>
 <body>
     <div id="wrapper">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <p>Welcome {{this_user.first_name}} {{this_user.last_name}}</p>
-                        </li>
-                        <li class="nav-item">
-                            <form action="/logout" method="POST">
-                            {% csrf_token %}
-                                <button type="submit">Logout</button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+        <nav>
+            <p>Welcome, {{this_user.first_name}}!</p>
+            <form action="/logout" method="POST">
+            {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </nav>
             <div>
                 {% if messages %}
                 <ul class="messages">

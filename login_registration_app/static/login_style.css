@@ -10,9 +10,6 @@
 
 html{
     font-family:Verdana, Tahoma, sans-serif;
-}
-
-html{
     font-size:10px;
 }
 
@@ -52,6 +49,25 @@ header{
     color:white;
 }
 
+h1{
+    padding-top:8rem;
+    font-size:6rem;
+    text-align:center;
+}
+
+@media only screen and (max-width:768px){
+h1{
+    padding-top:5rem;
+}
+}
+
+@media only screen and (max-width:480px){
+h1{
+    font-size:5rem;
+    padding-top:3rem;
+}
+}
+
 p{
     font-size:3rem;
     text-align:center;
@@ -73,23 +89,9 @@ p{
 }
 }
 
-h1{
-    padding-top:8rem;
-    font-size:6rem;
+.messages{
     text-align:center;
-}
-
-@media only screen and (max-width:768px){
-h1{
-    padding-top:5rem;
-}
-}
-
-@media only screen and (max-width:480px){
-h1{
-    font-size:5rem;
-    padding-top:3rem;
-}
+    color:red;
 }
 
 #wrapper{
@@ -123,11 +125,6 @@ h1{
     width:80%;
     margin-bottom:4rem;
 }
-}
-
-.messages{
-    text-align:center;
-    color:red;
 }
 
 h2{
