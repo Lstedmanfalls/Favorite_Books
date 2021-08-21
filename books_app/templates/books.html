@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wall</title>
+    <title>Book Wall</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
@@ -17,33 +17,15 @@
                 <button type="submit">Logout</button>
             </form>
         </nav>
-        <div id="wrapper">   
-            <div id="messages">
-                {% if messages %}
-                <ul class="messages">
-                    {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-            </div>
-            <div id ="add_book">
-                <h1>Add a Favorite Book</h1>
-                <form action="create_book" method="POST">
-                {% csrf_token %}
-                    <label for="title">Title</label>
-                    <input name="title" type="text">
-                    <label for="description">Description</label>
-                    <textarea name="description"></textarea>
-                    <button type="submit">Add Book</button>
-                </form>
-            </div>
+        <div class="wrapper" id="book_page_wrapper">
             <div id="books">
                 <h1>All Books</h1>
                 {% for book in all_the_books %}
                 <div>
                     <a href= "{{book.id}}"><h2>{{book.title}}</h2></a>
-                    <p>(added by {{book.uploaded_by.first_name}} {{book.uploaded_by.last_name}})</p>
+                    <p>Added by 
+                        <a href= "user/{{book.uploaded_by.id}}">{{book.uploaded_by.first_name}} {{book.uploaded_by.last_name}}</a>
+                    </p>
                     {% if book in this_user.books_favorited.all %}
                     <form action="{{book.id}}/unfavorite_homepage" method="POST">
                     {% csrf_token %}
@@ -55,16 +37,28 @@
                         <button type="submit">Add to Favorites</button>
                     </form>
                         {% endif %}
-                    {% endfor %}
                 </div>
-            </div>
-            <div>
-                <h1>All Users</h1>
-                {% for user in all_the_users %}
-                <div>
-                    <a href= "user/{{user.id}}"><h2>{{user.first_name}} {{user.last_name}}</h2></a>
-                    {% endfor %}
-                </div>
+                {% endfor %}
+            </div>   
+            <div id ="add_book">
+                <h1>Add a Favorite Book</h1>
+                    <div id="messages">
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    </div>
+                <form action="create_book" method="POST">
+                {% csrf_token %}
+                    <label for="title">Title</label>
+                    <input name="title" type="text">
+                    <label for="description">Description</label>
+                    <textarea name="description"></textarea>
+                    <button type="submit">Add Book</button>
+                </form>
             </div>
         </div>
     </div>

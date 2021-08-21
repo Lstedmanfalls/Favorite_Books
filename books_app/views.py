@@ -102,12 +102,14 @@ def destroy_book(request, book_id): #POST Request
     return redirect("/book")
 
 def user_page(request, user_id): #GET REQUEST
-    this_user = User.objects.get(id = user_id)
-    uploaded_books = this_user.books_uploaded.all()
+    this_user= User.objects.get(id=request.session["user_id"])
+    a_user = User.objects.get(id = user_id)
+    uploaded_books = a_user.books_uploaded.all()
     book_count = uploaded_books.count()
     context = {
-        "this_user": this_user,
-        "favorited_books": this_user.books_favorited.all(),
+        "this_user":this_user,
+        "a_user": a_user,
+        "favorited_books": a_user.books_favorited.all(),
         "uploaded_books":uploaded_books,
         "book_count": book_count,
     }

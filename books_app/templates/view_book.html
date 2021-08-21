@@ -5,39 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{a_book.id}}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     {% load static %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <div id="wrapper">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <p>Welcome {{this_user.first_name}} {{this_user.last_name}}</p>
-                    </li>
-                    <li>
-                        <a href="/book">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <form action="/logout" method="POST">
-                        {% csrf_token %}
-                            <button type="submit">Logout</button>
-                        </form>
-                    </li>
-                </ul>
+    <div id="container">
+        <nav>
+            <p>Welcome, {{this_user.first_name}}!</p>
+            <div id="nav_actions">
+                <a href="/book">Home</a>
+                <form action="/logout" method="POST">
+                {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
             </div>
         </nav>
-        <div>
-            {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            {% if this_user.id == user_who_uploaded.id %}
+        <div id="wrapper">
+            <div id="messages">
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            <div id="edit">
+                {% if this_user.id == user_who_uploaded.id %}
                 <form action="{{a_book.id}}/update_book" method="POST">
                 {% csrf_token %}
                     <label for="title">Title: </label>
@@ -50,34 +44,41 @@
                 {% csrf_token %}
                     <button type="submit">Delete</button>
                 </form>
-            {% else %}
+            </div>
+            <div id="book_info">
+                {% else %}
                 <h1>{{a_book.title}}</h1>
-                <p>Added by: {{a_book.uploaded_by.first_name}} {{a_book.uploaded_by.last_name}}</p>
+                <p>Added by:
+                    <a href ="user/{{a_book.uploaded_by.id}}">{{a_book.uploaded_by.first_name}} {{a_book.uploaded_by.last_name}}</a>
+                </p>
                 <p>Added on: {{a_book.created_at}}</p>
                 <p>Last updated: {{a_book.updated_at}}</p>
                 <p>Description: {{a_book.description}}</p>
             {% endif %}
-        </div>
-        <div>
-            <h1>Users Who Have Favorited This Book</h1>
-            <ul>
-                {% for user in favorited_by %} 
-                <li>{{user.first_name}} {{user.last_name}}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div>
+            </div>
+            <div id ="who_favorited">
+                <h1>Users Who Have Favorited This Book</h1>
+                <ul>
+                    {% for user in favorited_by %} 
+                    <li>
+                        <a href="user/{{user.id}}">{{user.first_name}} {{user.last_name}}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div id="favorite">
                 {% if this_user in favorited_by %}
-                    <form action="{{a_book.id}}/unfavorite_bookpage" method="POST">
-                    {% csrf_token %}
-                        <button type="submit">Remove from favorites</button>
-                    </form>
-                    {% else %}
-                    <form action="{{a_book.id}}/favorite_bookpage" method="POST">
-                    {% csrf_token %}
-                        <button type="submit">Add to Favorites</button>
-                    </form>
-                {% endif %}
+                <form action="{{a_book.id}}/unfavorite_bookpage" method="POST">
+                {% csrf_token %}
+                    <button type="submit">Remove from favorites</button>
+                </form>
+                {% else %}
+                <form action="{{a_book.id}}/favorite_bookpage" method="POST">
+                {% csrf_token %}
+                    <button type="submit">Add to Favorites</button>
+                </form>
+            {% endif %}
+            </div>
         </div>
     </div>
 </body>

@@ -4,50 +4,46 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{this_user.first_name}} {{this_user.last_name}}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <title>{{a_user.first_name}} {{a_user.last_name}}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <div id="wrapper">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <p>Welcome {{this_user.first_name}} {{this_user.last_name}}</p>
-                    </li>
-                    <li>
-                        <a href="/book">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <form action="/logout" method="POST">
-                        {% csrf_token %}
-                            <button type="submit">Logout</button>
-                        </form>
-                    </li>
-                </ul>
+    <div id="container">
+        <nav>
+            <p>Welcome, {{this_user.first_name}}!</p>
+            <div id="nav_actions">
+                <a href="/book">Home</a>
+                <form action="/logout" method="POST">
+                {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
             </div>
         </nav>
-        <div>
-            <h1>{{this_user.first_name}}'s Favorite Books</h1>
+        <div id="wrapper">   
+            <div id="favorites">
+            <h1>{{a_user.first_name}}'s Favorite Books</h1>
             <ul>
-                {% for book in favorited_books%} 
-                <li>{{book.title}}</li>
+                {% for book in favorited_books %} 
+                <li>
+                    <a href ="/book/{{book.id}}">{{book.title}}</a>
+                </li>
                 {% endfor %}
             </ul>
-        </div>
-        <div>
-            <h1>{{this_user.first_name}}'s Uploaded Books</h1>
-            <ul>
-                {% for book in uploaded_books %} 
-                <li>{{book.title}}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div>
-            <h1>Number of books uploaded: {{book_count}}
-            </h1>
+            </div>
+            <div id="uploads">
+                <h1>{{a_user.first_name}}'s Uploaded Books</h1>
+                <ul>
+                    </li>
+                        {% for book in uploaded_books %} 
+                        <a href ="/book/{{book.id}}">{{book.title}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div id="upload_number">
+                <h1>Number of books uploaded: {{book_count}}</h1>
+            </div>
         </div>
     </div>
 </body>

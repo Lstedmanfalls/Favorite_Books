@@ -13,46 +13,45 @@ nav{
     justify-content: space-between;
     align-items:center;
     background-color: #dcd0c9;
-    padding:2rem 5rem;
+    padding:2rem 2.5rem;
     border-top:.2rem solid black;
     border-bottom:.2rem solid black;
+}
+
+#nav_actions{
+    display: flex;
+    justify-content: space-between;
+    width:8%;
 }
 
 nav p{
     font-size:2.5rem;
 }
 
-nav button{
+nav a, nav button{
     font-size:1.5rem;
+    font-weight: bold;
     padding:.5rem 1rem;
     box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     color:#2D3033;
     background-color:#F8F8F8;
+    text-decoration: none;
+    border:.1rem solid black;
 }
 
-nav button:hover{
+nav button:hover, nav a:hover{
     cursor: pointer;
     background-color:#E0E0E0;
 }
 
-#quotable_quotes a, #favorite_quotes a, .edit button{
-    text-decoration: underline;
-    color:blue;
-    border:none;
-    font-size:1.5rem;
-    background-color: transparent;
-}
-
-#nav_actions{
-    display: flex;
-} 
-
-#wrapper{
+.wrapper{
     position:relative;
     min-height:100vh;
+    display: flex;
+    justify-content: space-evenly;
+    padding-top:4rem;
 }
-
-#wrapper::after{
+.wrapper::after{
     content:"";
     background-image:url("books.jpg");
     opacity:.7;
@@ -62,4 +61,23 @@ nav button:hover{
     right:0;
     position:absolute;
     z-index:-1;
+}
+
+#book_page_wrapper > div{
+    background-color:#dcd0c9;
+}
+
+#books{
+    width:70%;
+}
+
+#add_book, #add_book form, #books, #books > div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#add_book h1, #books h1{
+    font-size:4rem;
+    padding-top:3rem;
 }
