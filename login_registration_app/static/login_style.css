@@ -116,7 +116,7 @@ p{
 }
 
 #wrapper div{
-    background-color:#dcd0c9;
+    background-color:rgba(220, 208, 201, .8);
     width:25%;
     margin:0 7rem;
     border:.2rem solid black;

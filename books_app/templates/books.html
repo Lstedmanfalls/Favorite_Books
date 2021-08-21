@@ -19,7 +19,7 @@
         </nav>
         <div class="wrapper" id="book_page_wrapper">
             <div id="books">
-                <h1>All Books</h1>
+                <h1>America's Favorite Books</h1>
                 {% for book in all_the_books %}
                 <div>
                     <a href= "{{book.id}}"><h2>{{book.title}}</h2></a>
@@ -41,7 +41,7 @@
                 {% endfor %}
             </div>   
             <div id ="add_book">
-                <h1>Add a Favorite Book</h1>
+                <h1>Add Your Favorite Book</h1>
                     <div id="messages">
                     {% if messages %}
                     <ul class="messages">

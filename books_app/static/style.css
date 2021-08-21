@@ -3,6 +3,23 @@
     padding:0;
 }
 
+#container{
+    position:relative;
+    min-height:100vh;
+}
+
+#container::after{
+    content:"";
+    background-image:url("books.jpg");
+    opacity:.7;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    position:absolute;
+    z-index:-1;
+}
+
 html{
     font-size:10px;
     font-family: Arial, Helvetica, sans-serif;
@@ -12,7 +29,7 @@ nav{
     display: flex;
     justify-content: space-between;
     align-items:center;
-    background-color: #dcd0c9;
+    background-color: rgba(220, 208, 201, .8);
     padding:2rem 2.5rem;
     border-top:.2rem solid black;
     border-bottom:.2rem solid black;
@@ -45,30 +62,22 @@ nav button:hover, nav a:hover{
 }
 
 .wrapper{
-    position:relative;
-    min-height:100vh;
     display: flex;
     justify-content: space-evenly;
     padding-top:4rem;
 }
-.wrapper::after{
-    content:"";
-    background-image:url("books.jpg");
-    opacity:.7;
-    top:0;
-    left:0;
-    bottom:0;
-    right:0;
-    position:absolute;
-    z-index:-1;
-}
 
 #book_page_wrapper > div{
-    background-color:#dcd0c9;
+    background-color:rgba(220, 208, 201, .8);
+    border:.2rem solid black;
 }
 
 #books{
-    width:70%;
+    width:50%;
+}
+
+#add_book{
+    width:20%;
 }
 
 #add_book, #add_book form, #books, #books > div{
@@ -80,4 +89,5 @@ nav button:hover, nav a:hover{
 #add_book h1, #books h1{
     font-size:4rem;
     padding-top:3rem;
+    text-align: center;
 }
