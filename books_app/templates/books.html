@@ -5,12 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wall</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     {% load static %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <div id="wrapper">
+    <div id="container">
         <nav>
             <p>Welcome, {{this_user.first_name}}!</p>
             <form action="/logout" method="POST">
@@ -18,7 +17,8 @@
                 <button type="submit">Logout</button>
             </form>
         </nav>
-            <div>
+        <div id="wrapper">   
+            <div id="messages">
                 {% if messages %}
                 <ul class="messages">
                     {% for message in messages %}
@@ -26,6 +26,8 @@
                     {% endfor %}
                 </ul>
                 {% endif %}
+            </div>
+            <div id ="add_book">
                 <h1>Add a Favorite Book</h1>
                 <form action="create_book" method="POST">
                 {% csrf_token %}
@@ -36,7 +38,7 @@
                     <button type="submit">Add Book</button>
                 </form>
             </div>
-            <div>
+            <div id="books">
                 <h1>All Books</h1>
                 {% for book in all_the_books %}
                 <div>
@@ -64,6 +66,7 @@
                     {% endfor %}
                 </div>
             </div>
+        </div>
     </div>
 </body>
 </html>

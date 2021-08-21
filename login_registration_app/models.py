@@ -8,28 +8,28 @@ class UserManager(models.Manager):
         existing_email = User.objects.filter(email = postData["email"])
         EMAIL_REGEX = re.compile(r"^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$")
         if len(postData["first_name"]) < 2:
-            errors["first_name"] = "First name must be at least 2 characters"
+            errors["first_name"] = "First name must be at least 2 characters."
         if len(postData['last_name']) < 2:
-            errors["last_name"] = "Last name must be at least 2 characters"
-        if len(postData['password']) < 8:
-            errors["password"] = "Password must be at least 8 characters"
-        elif postData["password"] != postData["password_confirm"]:
-            errors["password_confirm"] = "Passwords do not match"
+            errors["last_name"] = "Last name must be at least 2 characters."
         if not EMAIL_REGEX.match(postData["email"]):           
-            errors["email"] = "Email address not valid"
+            errors["email"] = "Please enter a valid email address."
         elif len(existing_email) > 0:
-            errors["duplicate_email"] = "Email already registered"
+            errors["duplicate_email"] = "That email is already registered. Please login."
+        if len(postData['password']) < 8:
+            errors["password"] = "Password must be at least 8 characters."
+        elif postData["password"] != postData["password_confirm"]:
+            errors["password_confirm"] = "Passwords do not match."
         return errors
     
     def login_validator(self, postData):
         errors = {}
         existing_email = User.objects.filter(email = postData["email"])
         if len(existing_email) < 1:
-            errors["not_found"] = "Email not found. Please register for an account"
+            errors["not_found"] = "Email not found. Please register for an account."
         else:
             user = User.objects.filter(email = postData["email"])[0]
             if not bcrypt.checkpw(postData['password'].encode(), user.password.encode()):
-                errors['invalid_password'] = "That password is incorrect"
+                errors['invalid_password'] = "Password is incorrect."
         return errors
 
 class User(models.Model):

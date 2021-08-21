@@ -74,7 +74,7 @@ p{
 }
 
 p{
-    padding:3rem 0 6rem 0;
+    padding:3rem 0 4rem 0;
 }
 
 @media only screen and (max-width:768px){
@@ -91,12 +91,21 @@ p{
 
 .messages{
     text-align:center;
-    color:red;
+    color:#bf0000;
+    font-size:1.8rem;
+    padding:.5rem;
+    background-color:white;
+    margin:0 auto;
+}
+
+.error::marker{
+    color:transparent
 }
 
 #wrapper{
     display:flex;
     justify-content:center;
+    padding-top:3rem;
 }
 
 @media only screen and (max-width:480px){
