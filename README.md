@@ -8,4 +8,4 @@
 <h2>Book Wall PC</h2>
 <img src="book_wall_screenshot_pc.JPG">
 <h2>Book Profile PC</h2>
-<img src="book_page_screenshot_pc.JPG>
+<img src="book_page_screenshot_pc.JPG">
