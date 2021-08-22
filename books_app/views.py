@@ -57,7 +57,7 @@ def view_book(request, book_id): #GET REQUEST
         "favorited_by": this_book.favorited_by.all(),
         "user_who_uploaded":this_book.uploaded_by,
     }
-    return render(request, "view_book.html", context)
+    return render(request, "book_page.html", context)
 
 def unfavorite_bookpage(request, book_id): #POST Request
     this_user = User.objects.get(id = request.session["user_id"])

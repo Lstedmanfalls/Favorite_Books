@@ -17,7 +17,7 @@
                 <button type="submit">Logout</button>
             </form>
         </nav>
-        <div class="wrapper" id="book_page_wrapper">
+        <div id="books_wrapper">
             <div id="books">
                 <h1>America's Favorite Books</h1>
                 {% for book in all_the_books %}
@@ -29,19 +29,19 @@
                     {% if book in this_user.books_favorited.all %}
                     <form action="{{book.id}}/unfavorite_homepage" method="POST">
                     {% csrf_token %}
-                        <button type="submit">Remove from favorites</button>
+                        <button type="submit">Remove From My favorites</button>
                     </form>
                     {% else %}
                     <form action="{{book.id}}/favorite_homepage" method="POST">
                     {% csrf_token %}
-                        <button type="submit">Add to Favorites</button>
+                        <button type="submit">Add to My Favorites</button>
                     </form>
                         {% endif %}
                 </div>
                 {% endfor %}
             </div>   
             <div id ="add_book">
-                <h1>Add Your Favorite Book</h1>
+                <h1>Add Your Favorite Book to the List!</h1>
                     <div id="messages">
                     {% if messages %}
                     <ul class="messages">

@@ -1,0 +1,75 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+#container{
+    position:relative;
+    min-height:100vh;
+}
+
+#container::after{
+    content:"";
+    background-image:url("books.jpg");
+    opacity:.7;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    position:absolute;
+    z-index:-1;
+}
+
+html{
+    font-size:10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    background-color: rgba(220, 208, 201, .8);
+    padding:2rem 2.5rem;
+    border-top:.2rem solid black;
+    border-bottom:.2rem solid black;
+}
+
+#nav_actions{
+    display: flex;
+    justify-content: space-between;
+    width:8%;
+}
+
+nav p{
+    font-size:2.5rem;
+}
+
+nav a, nav button{
+    font-size:1.5rem;
+    font-weight: bold;
+    padding:.5rem 1rem;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    color:#2D3033;
+    background-color:#E0E0E0;
+    text-decoration: none;
+    border:.1rem solid black;
+}
+
+nav button:hover, nav a:hover{
+    cursor: pointer;
+    background-color:#F8F8F8;
+    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    color:#2D3033;
+}
+
+.wrapper{
+    display: flex;
+    justify-content: space-evenly;
+    padding-top:4rem;
+}
+
+#user_page_wrapper > div{
+    background-color:rgba(220, 208, 201, .8);
+    border:.2rem solid black;
+}

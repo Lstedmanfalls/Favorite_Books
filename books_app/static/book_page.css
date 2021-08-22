@@ -63,40 +63,42 @@ nav button:hover, nav a:hover{
     color:#2D3033;
 }
 
-#books_wrapper{
+#wrapper{
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
     padding-top:4rem;
 }
 
-#books_wrapper > div{
-    background-color:rgba(220, 208, 201, .8);
-    border:.2rem solid black;
-}
-
 #books{
+    background-color:rgba(220, 208, 201, .8);
+    border:1px solid black;
     width:50%;
+    padding:3rem 3rem 2rem 3rem;
+    display: flex;
+    flex-direction: column;
 }
 
-#books div > a{
-    font-size:2.3rem;
-    color:#ac6337;
-    font-family: 'Times New Roman', Times, serif;
-    font-style: italic;
-    padding-bottom:1rem;
+h1{
+    font-size:4.5rem;
+    padding-bottom:1.5rem;
+    text-align: center;
 }
 
-#books p, #books p > a{
-    font-size:2rem;
-    padding-bottom: 1rem;
+h2{
+    font-size: 2.5rem;
+    font-weight: normal;
+    text-align: center;
+    line-height: 1.4;
+    padding:0 3rem;
 }
 
-#books a{
-    color: #574b3f;
+#books form{
+    align-self:center;
+    padding-top:1.5rem;
 }
 
 #books button{
-    margin-bottom: 3rem;
     padding:.5rem 1rem;
     font-size:1.5rem;
     box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
@@ -109,52 +111,20 @@ nav button:hover, nav a:hover{
     background-color:#E0E0E0;
 }
 
-#add_book{
-    width:25%;
-    height:10%;
+#book_info{
+    padding-top:2.5rem;
 }
 
-#add_book, #add_book form, #books, #books > div{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#add_book h1, #books h1{
-    font-size:4.5rem;
-    padding:2rem 0 1rem 0;
-    text-align: center;
-}
-
-#add_book label{
-    font-size:2.5rem;
-    align-self:start;
-}
-
-#add_book input, #add_book textarea{
-    font-size:1.5rem;
-    width:35rem;
-    font-family: Arial, Helvetica, sans-serif;
-    padding:.5rem;
-    margin:.5rem 0 1.5rem 0;
-}
-
-#add_book button{
+.label{
     font-size:2rem;
-    padding:.5rem 1rem;
-    margin-bottom:1.5rem;
-    box-shadow:rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    color:#2D3033;
-    background-color:#F8F8F8;
+    font-weight: bold;
 }
 
-#add_book button:hover{
-    cursor:pointer;
-    background-color:#E0E0E0;
+#book_info p{
+    font-size:1.8rem;
+    padding-bottom:1.5rem;
 }
 
-textarea{
-    resize:none;
-    overflow-x: auto;
-    overflow-y: none;
+#book_info a {
+    color:#574b3f;
 }
