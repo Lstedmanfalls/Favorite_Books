@@ -1,6 +1,28 @@
+/*Mobile responsiveness breakpoints: 
+    Mobile (< 480px)
+    Tablet (480px to 768px)
+    PC (>= 769) */
+
 *{
     margin:0;
     padding:0;
+}
+
+html{
+    font-family:Verdana, Tahoma, sans-serif;
+    font-size:10px;
+}
+
+@media only screen and (max-width:768px){
+html{
+    font-size:8px;
+}
+}
+
+@media only screen and (max-width:480px){
+html{
+    font-size:8px;
+}
 }
 
 #container{
@@ -18,11 +40,6 @@
     right:0;
     position:absolute;
     z-index:-1;
-}
-
-html{
-    font-size:10px;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 nav{
@@ -67,11 +84,42 @@ nav button:hover, nav a:hover{
     display: flex;
     justify-content: space-evenly;
     padding-top:4rem;
+    padding-bottom:4rem;
+}
+
+@media only screen and (min-width:769px){
+#skip{
+    display: none;
+}
+}
+
+#skip{
+    text-align: center;
+    padding-top:1rem;
+}
+
+#skip a{
+    font-size: 2rem;
+    color:white;
+}
+
+@media only screen and (max-width:768px){
+#books_wrapper{
+    flex-direction: column;
+    align-items: center;
+    padding:2rem;
+}
 }
 
 #books_wrapper > div {
     background-color:rgba(220, 208, 201, .8);
     border:.1rem solid black;
+}
+
+@media only screen and (max-width:768px){
+#books_wrapper > div{
+    width:100%;
+}
 }
 
 #books_wrapper h1{
@@ -100,6 +148,12 @@ nav button:hover, nav a:hover{
     width:50%;
 }
 
+@media only screen and (max-width:768px){
+#books{
+    margin-bottom:3rem;
+    }
+    }
+
 #books div{
     width:100%;
 }
@@ -120,7 +174,15 @@ nav button:hover, nav a:hover{
     font-style: italic;
     padding-bottom:1rem;
     padding-top:2rem;
+    text-align: center;
 }
+
+@media only screen and (max-width:768px){
+    #books div > a{
+    padding-left:1rem;
+    padding-right:1rem;
+    }
+    }
 
 #books p, #books p > a{
     font-size:2rem;
@@ -141,6 +203,10 @@ nav button:hover, nav a:hover{
     height:10%;
 }
 
+#add_book form{
+    width:80%;
+}
+
 #add_book h1{
     font-size:4rem;
     padding:2rem 2rem 2rem 2rem;
@@ -153,7 +219,7 @@ nav button:hover, nav a:hover{
 
 #add_book input, textarea{
     font-size:1.5rem;
-    width:35rem;
+    width:100%;
     font-family: Arial, Helvetica, sans-serif;
     padding:.5rem;
     margin:.5rem 0 1.5rem 0;
@@ -168,4 +234,22 @@ textarea{
     resize:none;
     overflow-x: auto;
     overflow-y: none;
+}
+
+footer{
+    text-align: center;
+    font-size:1.5rem;
+    padding:1.5rem;
+    background-color: rgba(220, 208, 201, .8);
+    border-top:.2rem solid black;
+    border-bottom:.2rem solid black;
+}
+
+footer p{
+    padding-bottom: .5rem;
+}
+
+footer a{
+    color:#574b3f;
+    padding:0 .5rem;
 }

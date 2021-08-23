@@ -22,29 +22,32 @@
         </nav>
         <div id="wrapper">   
             <div id="favorites">
-            <h1>{{a_user.first_name}}'s Favorite Books</h1>
-            <ul>
+                <h1>{{a_user.first_name}}'s Favorite Books</h1>
                 {% for book in favorited_books %} 
-                <li>
+                <p>
                     <a href ="/book/{{book.id}}">{{book.title}}</a>
-                </li>
+                </p>
                 {% endfor %}
-            </ul>
             </div>
             <div id="uploads">
                 <h1>{{a_user.first_name}}'s Uploaded Books</h1>
-                <ul>
-                    </li>
-                        {% for book in uploaded_books %} 
-                        <a href ="/book/{{book.id}}">{{book.title}}</a>
+                <p>
+                    {% for book in uploaded_books %} 
+                    <a href ="/book/{{book.id}}">{{book.title}}</a>
                     </li>
                     {% endfor %}
-                </ul>
+                </p>
             </div>
             <div id="upload_number">
                 <h1>Number of books uploaded: {{book_count}}</h1>
             </div>
         </div>
+        <footer>
+            <p>&#169; 2021 Lisa Stedman-Falls</p>
+            <a href="https://github.com/Lstedmanfalls/">GitHub</a>
+            <a href="https://codepen.io/lstedmanfalls">CodePen</a>
+            <a href="https://www.linkedin.com/in/lstedmanfalls/">LinkedIn</a>
+        </footer>
     </div>
 </body>
 </html>

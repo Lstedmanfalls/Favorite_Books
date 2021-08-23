@@ -34,20 +34,38 @@
             <div id="edit">
                 <form action="{{a_book.id}}/update_book" method="POST">
                 {% csrf_token %}
-                    <label for="title">Title: </label>
+                    <label class="label" for="title">Title: </label>
                     <input name="title" type="text" value="{{a_book.title}}">
-                    <label for="genre">Genre: </label>
+                    <label class="label" for="genre">Genre: </label>
                     <input name="genre" type="text" value="{{a_book.genre}}">
-                    <label for="description">Description: </label>
+                    <label class="label" for="description">Description: </label>
                     <textarea name="description">{{a_book.description}}</textarea>
                     <button type="submit">Update</button>
                 </form>
                 <form action="{{a_book.id}}/destroy_book" method="POST">
                 {% csrf_token %}
-                    <button type="submit">Delete</button>
+                    <button type="submit">Delete This Book</button>
                 </form>
+                <p><span class="label">Favorited By:</span>
+                    {% for user in favorited_by %} 
+                    <a href="user/{{user.id}}">{{user.first_name}} {{user.last_name}}</a>
+                    {% endfor %}
+                </p>
+                {% if this_user in favorited_by %}
+                <form action="{{a_book.id}}/unfavorite_bookpage" method="POST">
+                {% csrf_token %}
+                    <button type="submit">Remove from Favorites</button>
+                </form>
+                {% else %}
+                <form action="{{a_book.id}}/favorite_bookpage" method="POST">
+                {% csrf_token %}
+                    <button type="submit">Add to Favorites</button>
+                </form>
+                {% endif %}
             </div>
-            {% else %}
+            {% endif %}
+            {% if not this_user.id == user_who_uploaded.id %}
+            {% if not this_user == admin %}
             <div id="books">
                 <h1>{{a_book.title}}</h1>
                 <p>{{a_book.genre}}</p>
@@ -69,7 +87,6 @@
                     </p>
                     <p><span class="label">Added On: </span>{{a_book.created_at}}</p>
                     <p><span class="label">Last Updated: </span>{{a_book.updated_at}}</p>
-            {% endif %}
                     <p><span class="label">Favorited By:</span>
                     {% for user in favorited_by %} 
                     <a href="user/{{user.id}}">{{user.first_name}} {{user.last_name}}</a>
@@ -77,7 +94,15 @@
                     </p>
                 </div>
             </div>
+            {% endif %}
+            {% endif %}
         </div>
+        <footer>
+            <p>&#169; 2021 Lisa Stedman-Falls</p>
+            <a href="https://github.com/Lstedmanfalls/">GitHub</a>
+            <a href="https://codepen.io/lstedmanfalls">CodePen</a>
+            <a href="https://www.linkedin.com/in/lstedmanfalls/">LinkedIn</a>
+        </footer>
     </div>
 </body>
 </html>
