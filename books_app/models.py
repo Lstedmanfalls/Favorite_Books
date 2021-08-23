@@ -7,7 +7,9 @@ class BookManager(models.Manager):
         existing_books = Book.objects.filter(title = postData['title'])
         errors = {}
         if len(postData['title']) < 1:
-            errors['title'] = "Title is required"
+            errors['title'] = "Title is required and must be at least 1 character long"
+        if len(postData['genre']) < 5:
+            errors['genre'] = "Genre must be at least 5 characters long"
         if len(postData['description']) < 5:
             errors['description'] = "Description must be at least 5 characters long"
         elif len(existing_books) > 0:
@@ -19,15 +21,16 @@ class BookManager(models.Manager):
         errors = {}
         if len(postData['title']) < 1:
             errors['title'] = "Title is required"
+        if len(postData['genre']) < 3:
+            errors['genre'] = "Genre must be at least 3 characters long"
         if len(postData['description']) < 5:
             errors['description'] = "Description must be at least 5 characters long"
-        elif len(existing_books) > 0:
-            errors['duplicate'] = "That book already exists"
         return errors
 
 class Book(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
+    genre = models.CharField(max_length=255, default="")
     uploaded_by = models.ForeignKey(User, related_name = "books_uploaded", on_delete = models.CASCADE)
     favorited_by = models.ManyToManyField(User, related_name = "books_favorited")
     created_at = models.DateTimeField(auto_now_add=True)

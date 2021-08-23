@@ -83,6 +83,14 @@ h1{
     font-size:4.5rem;
     padding-bottom:1.5rem;
     text-align: center;
+    color:#ac6337;
+}
+
+#books > p{
+    font-size:3rem;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 1rem;
 }
 
 h2{
@@ -91,7 +99,7 @@ h2{
     text-align: center;
     line-height: 1.4;
     padding:0 3rem;
-    color:#ac6337;
+    font-style: italic;
 }
 
 #books form{

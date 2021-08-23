@@ -25,7 +25,7 @@ def create_book(request): #POST REQUEST
         return redirect("/book")
     elif request.method == "POST":
         uploader = User.objects.get(id = request.session["user_id"]) 
-        create = Book.objects.create(title = request.POST["title"], description = request.POST["description"], uploaded_by = uploader)
+        create = Book.objects.create(title = request.POST["title"], description = request.POST["description"], genre = request.POST["genre"], uploaded_by = uploader)
         this_book = Book.objects.get(id = create.id)
         this_book.favorited_by.add(uploader)
     return redirect("/book")
@@ -51,11 +51,13 @@ def favorite_homepage(request, book_id): #POST Request
 def view_book(request, book_id): #GET REQUEST
     this_book = Book.objects.get(id = book_id)
     this_user = User.objects.get(id = request.session["user_id"])
+    admin = User.objects.get(id = 1)
     context = {
         "this_user": this_user,
         "a_book": this_book,
         "favorited_by": this_book.favorited_by.all(),
         "user_who_uploaded":this_book.uploaded_by,
+        "admin": admin,
     }
     return render(request, "book_page.html", context)
 
@@ -88,6 +90,7 @@ def update_book(request, book_id): #POST REQUEST
     elif request.method == "POST":
         a_book = Book.objects.get(id = book_id)
         a_book.title = request.POST["title"]
+        a_book.genre = request.POST["genre"]
         a_book.description = request.POST["description"]
         a_book.save()
         messages.success(request, "Book updated")

@@ -30,12 +30,14 @@
                 </ul>
             </div>
             {% endif %}
-            {% if this_user.id == user_who_uploaded.id %}
+            {% if this_user.id == user_who_uploaded.id or this_user == admin %}
             <div id="edit">
                 <form action="{{a_book.id}}/update_book" method="POST">
                 {% csrf_token %}
                     <label for="title">Title: </label>
                     <input name="title" type="text" value="{{a_book.title}}">
+                    <label for="genre">Genre: </label>
+                    <input name="genre" type="text" value="{{a_book.genre}}">
                     <label for="description">Description: </label>
                     <textarea name="description">{{a_book.description}}</textarea>
                     <button type="submit">Update</button>
@@ -48,6 +50,7 @@
             {% else %}
             <div id="books">
                 <h1>{{a_book.title}}</h1>
+                <p>{{a_book.genre}}</p>
                 <h2>{{a_book.description}}</h2>
                 {% if this_user in favorited_by %}
                 <form action="{{a_book.id}}/unfavorite_bookpage" method="POST">

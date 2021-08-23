@@ -23,6 +23,7 @@
                 {% for book in all_the_books %}
                 <div>
                     <a href= "{{book.id}}"><h2>{{book.title}}</h2></a>
+                    <p>{{book.genre}}</p>
                     <p>Added by 
                         <a href= "user/{{book.uploaded_by.id}}">{{book.uploaded_by.first_name}} {{book.uploaded_by.last_name}}</a>
                     </p>
@@ -55,12 +56,21 @@
                 {% csrf_token %}
                     <label for="title">Title</label>
                     <input name="title" type="text">
+                    <label for="genre">Genre</label>
+                    <input name="genre" type="text">
                     <label for="description">Description</label>
                     <textarea name="description"></textarea>
                     <button type="submit">Add Book</button>
                 </form>
             </div>
         </div>
+        <footer>
+            <p>&#169; 2021 Lisa Stedman-Falls</p>
+            <a href="https://github.com/Lstedmanfalls/">GitHub</a>
+            <a href="https://codepen.io/lstedmanfalls">CodePen</a>
+            <a href="https://www.linkedin.com/in/lstedmanfalls/">LinkedIn</a>
+
+        </footer>
     </div>
 </body>
 </html>
