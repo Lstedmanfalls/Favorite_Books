@@ -26,11 +26,25 @@ class BookManager(models.Manager):
         if len(postData['description']) < 5:
             errors['description'] = "Description must be at least 5 characters long"
         return errors
+    
+    def edit_bio_validator(self, postData):
+        errors = {}
+        if len (postData['bio']) > 0 and len (postData['bio']) < 10:
+            errors["bio"] = "Bio may be blank or at least 10 characters."
+        return errors
+    
+    def change_password_validator(self, postData):
+        errors = {}
+        if len(postData['password']) < 8:
+            errors["password"] = "Password must be at least 8 characters."
+        elif postData["password"] != postData["password_confirm"]:
+            errors["password_confirm"] = "Passwords do not match."
+        return errors
 
 class Book(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    genre = models.CharField(max_length=255, default="")
+    genre = models.CharField(max_length=255)
     uploaded_by = models.ForeignKey(User, related_name = "books_uploaded", on_delete = models.CASCADE)
     favorited_by = models.ManyToManyField(User, related_name = "books_favorited")
     created_at = models.DateTimeField(auto_now_add=True)

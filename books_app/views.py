@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from .models import Book, User
 from django.db.models import Sum
+import bcrypt
 
 def book(request): #GET REQUEST
     if "user_id" not in request.session:
@@ -107,13 +108,50 @@ def destroy_book(request, book_id): #POST Request
 def user_page(request, user_id): #GET REQUEST
     this_user= User.objects.get(id=request.session["user_id"])
     a_user = User.objects.get(id = user_id)
+    admin = User.objects.get(id = 1)
     uploaded_books = a_user.books_uploaded.all()
     book_count = uploaded_books.count()
+    favorited_books = a_user.books_favorited.all()
+    favorite_count= favorited_books.count()
     context = {
         "this_user":this_user,
         "a_user": a_user,
-        "favorited_books": a_user.books_favorited.all(),
+        "favorited_books": favorited_books,
         "uploaded_books":uploaded_books,
         "book_count": book_count,
+        "favorite_count":favorite_count,
+        "admin": admin,
     }
     return render(request, "user_page.html", context)
+
+def edit_bio(request, user_id): #POST REQUEST
+    errors = Book.objects.edit_bio_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect(f"/book/user/{user_id}")
+    elif request.method != "POST":
+        return redirect(f"/book/user/{user_id}")
+    elif request.method == "POST":
+        a_user = User.objects.get(id = user_id)
+        a_user.bio = request.POST["bio"]
+        a_user.save()
+        messages.success(request, "Bio updated")
+    return redirect(f"/book/user/{user_id}")
+
+def change_password(request, user_id): #POST REQUEST
+    errors = Book.objects.change_password_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect(f"/book/user/{user_id}")
+    elif request.method != "POST":
+        return redirect(f"/book/user/{user_id}")
+    elif request.method == "POST":
+        a_user = User.objects.get(id = user_id)
+        password = request.POST['password']
+        pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+        a_user.password = pw_hash
+        a_user.save()
+        messages.success(request, "Password updated")
+    return redirect(f"/book/user/{user_id}")

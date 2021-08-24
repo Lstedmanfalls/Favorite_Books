@@ -20,28 +20,52 @@
                 </form>
             </div>
         </nav>
-        <div id="wrapper">   
-            <div id="favorites">
-                <h1>{{a_user.first_name}}'s Favorite Books</h1>
+        <div id="wrapper">
+            {% if messages %}
+            <div id="messages">
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% if this_user.id == a_user.id or this_user == admin %}
+            <div id="edit">
+                <form action="/book/user/{{a_user.id}}/edit_bio" method="POST">
+                {% csrf_token %}
+                    <label class="label" for="bio">Bio: </label>
+                    <textarea name="bio">{{a_user.bio}}</textarea>
+                    <button type="submit">Update</button>
+                </form>
+                <form action="/book/user/{{a_user.id}}/change_password" method="POST">
+                    {% csrf_token %}
+                        <label for="password">Password</label>
+                        <input name="password" type="password">
+                        <label for="password_confirm">Confirm Password</label>
+                        <input name="password_confirm" type="password">
+                        <button type="submit">Update</button>
+                    </form>
+            </div>
+            {% endif %}
+            <div id="user_info">
+                <h1>{{a_user.first_name}} {{a_user.last_name}}'s Page</h1>
+                <p>Member since {{a_user.created_at}}</p>
+                <p>{{a_user.bio}}</p> 
+                <h2>{{a_user.first_name}}'s Favorite Books ({{favorite_count}})</h2>
                 {% for book in favorited_books %} 
                 <p>
                     <a href ="/book/{{book.id}}">{{book.title}}</a>
                 </p>
                 {% endfor %}
-            </div>
-            <div id="uploads">
-                <h1>{{a_user.first_name}}'s Uploaded Books</h1>
+                <h2>{{a_user.first_name}}'s Uploaded Books ({{book_count}})</h2>
+                {% for book in uploaded_books %} 
                 <p>
-                    {% for book in uploaded_books %} 
                     <a href ="/book/{{book.id}}">{{book.title}}</a>
-                    </li>
-                    {% endfor %}
                 </p>
+                {% endfor %}
             </div>
-            <div id="upload_number">
-                <h1>Number of books uploaded: {{book_count}}</h1>
-            </div>
-        </div>
+        </div>   
         <footer>
             <p>&#169; 2021 Lisa Stedman-Falls</p>
             <a href="https://github.com/Lstedmanfalls/">GitHub</a>

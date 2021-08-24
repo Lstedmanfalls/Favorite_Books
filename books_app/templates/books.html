@@ -12,10 +12,12 @@
     <div id="container">
         <nav>
             <p>Welcome, {{this_user.first_name}}!</p>
-            <form action="/logout" method="POST">
-            {% csrf_token %}
-                <button type="submit">Logout</button>
-            </form>
+            <div id ="nav_actions">
+                <form action="/logout" method="POST">
+                {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            </div>
         </nav>
         <div id="skip">
             <a href="#add_book">Skip to Add Book</a>

@@ -8,6 +8,10 @@ PC (>= 769) */
     padding:0;
 }
 
+body{
+    height:100%;
+}
+
 html{
     font-family:Verdana, Tahoma, sans-serif;
     font-size:10px;
@@ -46,22 +50,27 @@ html{
 
 nav{
     display: flex;
+    width:100%;
     justify-content: space-between;
     align-items:center;
     background-color: rgba(220, 208, 201, .8);
-    padding:2rem 2.5rem;
-    border-top:.2rem solid black;
+    padding:2rem 0;
     border-bottom:.2rem solid black;
 }
 
 nav p{
     font-size:2.5rem;
+    padding-left:2rem;
 }
 
 #nav_actions{
     display: flex;
     justify-content: space-between;
-    width:8%;
+    padding-right:2rem;
+}
+
+nav a{
+    margin-right:2rem;
 }
 
 nav a, nav button{
@@ -88,6 +97,7 @@ nav button:hover, nav a:hover{
     flex-direction: column;
     align-items: center;
     padding-top:4rem;
+    padding-bottom:4rem;
     min-height:auto;
 }
 
@@ -97,7 +107,6 @@ footer{
     padding:1.5rem;
     background-color: rgba(220, 208, 201, .8);
     border-top:.2rem solid black;
-    border-bottom:.2rem solid black;
 }
 
 footer p{
