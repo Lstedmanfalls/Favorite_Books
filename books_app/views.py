@@ -81,15 +81,17 @@ def favorite_bookpage(request, book_id): #POST Request
     return redirect(f"/book/{book_id}")
 
 def update_book(request, book_id): #POST REQUEST
+    a_book = Book.objects.get(id = book_id)
     errors = Book.objects.update_validator(request.POST)
-    if len(errors) > 0:
+    if request.POST['title'] == a_book.title:
+        messages.success(request, "Title unchanged")
+    elif len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
         return redirect(f"/book/{book_id}")
     elif request.method != "POST":
         return redirect(f"/book/{book_id}")
     elif request.method == "POST":
-        a_book = Book.objects.get(id = book_id)
         a_book.title = request.POST["title"]
         a_book.genre = request.POST["genre"]
         a_book.description = request.POST["description"]
@@ -124,17 +126,20 @@ def user_page(request, user_id): #GET REQUEST
     }
     return render(request, "user_page.html", context)
 
-def edit_bio(request, user_id): #POST REQUEST
-    errors = Book.objects.edit_bio_validator(request.POST)
-    if len(errors) > 0:
+def edit_info(request, user_id): #POST REQUEST
+    a_user = User.objects.get(id = user_id)
+    errors = Book.objects.edit_info_validator(request.POST)
+    if request.POST['username'] == a_user.username:
+        messages.success(request, "Username unchanged")
+    elif len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
         return redirect(f"/book/user/{user_id}")
     elif request.method != "POST":
         return redirect(f"/book/user/{user_id}")
     elif request.method == "POST":
-        a_user = User.objects.get(id = user_id)
         a_user.bio = request.POST["bio"]
+        a_user.username = request.POST["username"]
         a_user.save()
         messages.success(request, "Bio updated")
     return redirect(f"/book/user/{user_id}")

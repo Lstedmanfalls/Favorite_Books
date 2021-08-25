@@ -20,14 +20,14 @@ def register(request): #POST REQUEST
     elif request.method == "POST":
             password = request.POST['password']
             pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-            user_id = User.objects.create(first_name = request.POST["first_name"], last_name = request.POST["last_name"], email = request.POST['email'], password=pw_hash)
+            user_id = User.objects.create(first_name = request.POST["first_name"], last_name = request.POST["last_name"], username = request.POST["username"], email = request.POST['email'], password=pw_hash)
             request.session['user_id'] = user_id.id
     return redirect("/book")
 
 def login(request): #POST REQUEST
     errors = User.objects.login_validator(request.POST)
     if len(errors) > 0:
-        for key, value in errors.items():
+        for value in errors.items():
             messages.error(request, value)
         return redirect("/")
     user = User.objects.filter(email=request.POST["email"])

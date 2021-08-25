@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{a_user.first_name}} {{a_user.last_name}}' Profile</title>
+    <title>{{a_username}}' Profile</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'user_page.css' %}">
 </head>
 <body>
     <div id="container">
         <nav>
-            <p>Welcome, {{this_user.first_name}}!</p>
+            <p>Welcome, {{this_user.username}}!</p>
             <div id="nav_actions">
                 <a href="/book">Home</a>
                 <form action="/logout" method="POST">
@@ -32,8 +32,10 @@
             {% endif %}
             {% if this_user.id == a_user.id or this_user == admin %}
             <div id="edit">
-                <form action="/book/user/{{a_user.id}}/edit_bio" method="POST">
+                <form action="/book/user/{{a_user.id}}/edit_info" method="POST">
                 {% csrf_token %}
+                    <label class="label" for="username">Username: </label>
+                    <input name="username" type="text" value ="{{a_user.username}}">
                     <label class="label" for="bio">Bio: </label>
                     <textarea name="bio">{{a_user.bio}}</textarea>
                     <button type="submit">Update</button>
@@ -49,16 +51,16 @@
             </div>
             {% endif %}
             <div id="user_info">
-                <h1>{{a_user.first_name}} {{a_user.last_name}}'s Page</h1>
+                <h1>{{a_user.username}}'s Page</h1>
                 <p>Member since {{a_user.created_at}}</p>
                 <p>{{a_user.bio}}</p> 
-                <h2>{{a_user.first_name}}'s Favorite Books ({{favorite_count}})</h2>
+                <h2>Favorite Books ({{favorite_count}})</h2>
                 {% for book in favorited_books %} 
                 <p>
                     <a href ="/book/{{book.id}}">{{book.title}}</a>
                 </p>
                 {% endfor %}
-                <h2>{{a_user.first_name}}'s Uploaded Books ({{book_count}})</h2>
+                <h2>Uploaded Books ({{book_count}})</h2>
                 {% for book in uploaded_books %} 
                 <p>
                     <a href ="/book/{{book.id}}">{{book.title}}</a>

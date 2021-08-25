@@ -7,6 +7,7 @@
     <title>Book Wall</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'style.css' %}">
+
 </head>
 <body>
     <div id="container">
@@ -30,7 +31,7 @@
                     <a href= "{{book.id}}"><h2>{{book.title}}</h2></a>
                     <p>{{book.genre}}</p>
                     <p>Added by 
-                        <a href= "user/{{book.uploaded_by.id}}">{{book.uploaded_by.first_name}} {{book.uploaded_by.last_name}}</a>
+                        <a href= "user/{{book.uploaded_by.id}}">{{book.uploaded_by.username}}</a>
                     </p>
                     {% if book in this_user.books_favorited.all %}
                     <form action="{{book.id}}/unfavorite_homepage" method="POST">

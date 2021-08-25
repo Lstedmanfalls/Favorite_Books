@@ -12,6 +12,6 @@ urlpatterns = [
     path('<int:book_id>/update_book', views.update_book), #POST request to update a specific object
     path('<int:book_id>/destroy_book', views.destroy_book), #POST request to delete a specific object
     path('user/<int:user_id>', views.user_page), #GET request to display a specific object's info
-    path('user/<int:user_id>/edit_bio', views.edit_bio),
+    path('user/<int:user_id>/edit_info', views.edit_info),
     path('user/<int:user_id>/change_password', views.change_password),
 ]
