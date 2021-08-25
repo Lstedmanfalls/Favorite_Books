@@ -128,10 +128,8 @@ def user_page(request, user_id): #GET REQUEST
 
 def edit_info(request, user_id): #POST REQUEST
     a_user = User.objects.get(id = user_id)
-    errors = Book.objects.edit_info_validator(request.POST)
-    if request.POST['username'] == a_user.username:
-        messages.success(request, "Username unchanged")
-    elif len(errors) > 0:
+    errors = Book.objects.edit_info_validator(request.POST, request.session)    
+    if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
         return redirect(f"/book/user/{user_id}")
