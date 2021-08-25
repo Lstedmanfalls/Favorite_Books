@@ -28,11 +28,11 @@ class UserManager(models.Manager):
     
     def login_validator(self, postData):
         errors = {}
-        existing_username = User.objects.filter(username = postData["username"])
-        if len(existing_username) < 1:
-            errors["not_found"] = "Username not found. Please register for an account."
+        existing_email = User.objects.filter(email = postData["email"])
+        if len(existing_email) < 1:
+            errors["not_found"] = "Email not found. Please register for an account."
         else:
-            user = User.objects.filter(username = postData["username"])[0]
+            user = User.objects.filter(email = postData["email"])[0]
             if not bcrypt.checkpw(postData['password'].encode(), user.password.encode()):
                 errors['invalid_password'] = "Password is incorrect."
         return errors
