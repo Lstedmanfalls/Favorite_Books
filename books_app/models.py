@@ -7,26 +7,27 @@ class BookManager(models.Manager):
         existing_books = Book.objects.filter(title = postData['title'])
         errors = {}
         if len(postData['title']) < 1:
-            errors['title'] = "Title is required and must be at least 1 character long"
+            errors['title'] = "Title must be at least 1 character"
         elif len(existing_books) > 0:
-            errors['duplicate_book'] = "Book already exists. Please choose another one."
+            errors['duplicate_book'] = "That book already exists, please choose another"
         if len(postData['genre']) < 5:
-            errors['genre'] = "Genre must be at least 5 characters long"
+            errors['genre'] = "Genre must be at least 5 characters"
         if len(postData['description']) < 5:
-            errors['description'] = "Description must be at least 5 characters long"
-        elif len(existing_books) > 0:
-            errors['duplicate'] = "That book already exists"
+            errors['description'] = "Description must be at least 5 characters"
         return errors
 
     def update_validator(self, postData):
+        this_book = Book.objects.get(id = postData['id'])
         existing_books = Book.objects.filter(title = postData['title'])
         errors = {}
         if len(postData['title']) < 1:
             errors['title'] = "Title is required"
+        elif len(existing_books) > 0 and existing_books[0].id != this_book.id:
+            errors['duplicate'] = "That book already exists, please choose another"
         if len(postData['genre']) < 3:
-            errors['genre'] = "Genre must be at least 3 characters long"
+            errors['genre'] = "Genre must be at least 3 characters"
         if len(postData['description']) < 5:
-            errors['description'] = "Description must be at least 5 characters long"
+            errors['description'] = "Description must be at least 5 characters"
         return errors
     
     def edit_info_validator(self, postData, session):
@@ -34,9 +35,9 @@ class BookManager(models.Manager):
         existing_username = User.objects.filter(username = postData["username"])            
         errors = {}
         if len (postData['bio']) > 0 and len (postData['bio']) < 10:
-            errors["bio"] = "Bio may be blank or at least 10 characters."
+            errors["bio"] = "Bio may be blank or at least 10 characters"
         if len(postData['username']) < 1:
-            errors["username"] = "Username is required."
+            errors["username"] = "Username is required"
         elif len(existing_username) and existing_username[0].id != this_user.id:
             errors['duplicate'] = "That username is already taken"
         return errors
@@ -44,9 +45,9 @@ class BookManager(models.Manager):
     def change_password_validator(self, postData):
         errors = {}
         if len(postData['password']) < 8:
-            errors["password"] = "Password must be at least 8 characters."
+            errors["password"] = "Password must be at least 8 characters"
         elif postData["password"] != postData["password_confirm"]:
-            errors["password_confirm"] = "Passwords do not match."
+            errors["password_confirm"] = "Passwords do not match"
         return errors
 
 class Book(models.Model):

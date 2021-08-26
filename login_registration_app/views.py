@@ -27,7 +27,7 @@ def register(request): #POST REQUEST
 def login(request): #POST REQUEST
     errors = User.objects.login_validator(request.POST)
     if len(errors) > 0:
-        for value in errors.items():
+        for key, value in errors.items():
             messages.error(request, value)
         return redirect("/")
     user = User.objects.filter(email=request.POST["email"])

@@ -21,53 +21,8 @@
             </div>
         </nav>
         <div id="wrapper">
-            {% if messages %}
-            <div id="messages">
-                <ul class="messages">
-                    {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
-            {% if this_user.id == user_who_uploaded.id or this_user == admin %}
-            <div id="edit">
-                <form action="{{a_book.id}}/update_book" method="POST">
-                {% csrf_token %}
-                    <label class="label" for="title">Title: </label>
-                    <input name="title" type="text" value="{{a_book.title}}">
-                    <label class="label" for="genre">Genre: </label>
-                    <input name="genre" type="text" value="{{a_book.genre}}">
-                    <label class="label" for="description">Description: </label>
-                    <textarea name="description">{{a_book.description}}</textarea>
-                    <button type="submit">Update</button>
-                </form>
-                <form action="{{a_book.id}}/destroy_book" method="POST">
-                {% csrf_token %}
-                    <button type="submit">Delete This Book</button>
-                </form>
-                <p><span class="label">Favorited By:</span>
-                    {% for user in favorited_by %} 
-                    <a href="user/{{user.id}}">{{user.first_name}} {{user.last_name}}</a>
-                    {% endfor %}
-                </p>
-                {% if this_user in favorited_by %}
-                <form action="{{a_book.id}}/unfavorite_bookpage" method="POST">
-                {% csrf_token %}
-                    <button type="submit">Remove from Favorites</button>
-                </form>
-                {% else %}
-                <form action="{{a_book.id}}/favorite_bookpage" method="POST">
-                {% csrf_token %}
-                    <button type="submit">Add to Favorites</button>
-                </form>
-                {% endif %}
-            </div>
-            {% endif %}
-            {% if not this_user.id == user_who_uploaded.id %}
-            {% if not this_user == admin %}
+            <h1>{{a_book.title}}</h1>
             <div id="books">
-                <h1>{{a_book.title}}</h1>
                 <p>{{a_book.genre}}</p>
                 <h2>{{a_book.description}}</h2>
                 {% if this_user in favorited_by %}
@@ -83,18 +38,46 @@
                 {% endif %}
                 <div id="book_info">
                     <p><span class="label">Added By: </span>
-                        <a href="user/{{a_book.uploaded_by.id}}">{{a_book.uploaded_by.first_name}} {{a_book.uploaded_by.last_name}}</a>
+                        <a href="user/{{a_book.uploaded_by.id}}">{{a_book.uploaded_by.username}}</a>
                     </p>
                     <p><span class="label">Added On: </span>{{a_book.created_at}}</p>
                     <p><span class="label">Last Updated: </span>{{a_book.updated_at}}</p>
                     <p><span class="label">Favorited By:</span>
                     {% for user in favorited_by %} 
-                    <a href="user/{{user.id}}">{{user.first_name}} {{user.last_name}}</a>
+                    <a href="user/{{user.id}}">{{user.username}}</a>
                     {% endfor %}
                     </p>
                 </div>
             </div>
-            {% endif %}
+            {% if this_user.id == user_who_uploaded.id %}
+            <div id="edit">
+                <form action="{{a_book.id}}/update_book" method="POST">
+                {% csrf_token %}
+                    <input name="id" type="hidden" value ={{a_book.id}}> 
+                    <label class="label" for="title">Title: </label>
+                    <input name="title" type="text" value="{{a_book.title}}">
+                    <label class="label" for="genre">Genre: </label>
+                    <input name="genre" type="text" value="{{a_book.genre}}">
+                    <label class="label" for="description">Description: </label>
+                    <textarea name="description">{{a_book.description}}</textarea>
+                    <button type="submit">Update</button>
+                </form>
+                <div id ="messages">
+                    {% if messages %}
+                    {% for message in messages %}    
+                    <p class="messages">    
+                    {{ message }}   
+                    </p>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <div id="delete">
+                    <form action="{{a_book.id}}/destroy_book" method="POST">
+                    {% csrf_token %}
+                        <button type="submit">Delete This Book</button>
+                    </form>
+                </div>
+            </div>
             {% endif %}
         </div>
         <footer>

@@ -83,8 +83,9 @@ def favorite_bookpage(request, book_id): #POST Request
 def update_book(request, book_id): #POST REQUEST
     a_book = Book.objects.get(id = book_id)
     errors = Book.objects.update_validator(request.POST)
-    if request.POST['title'] == a_book.title:
-        messages.success(request, "Title unchanged")
+    if request.POST['title'] == a_book.title and request.POST['genre'] == a_book.genre and request.POST['description'] == a_book.description:
+        messages.success(request, "No changes made")
+        return redirect(f"/book/{book_id}")    
     elif len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
@@ -129,7 +130,10 @@ def user_page(request, user_id): #GET REQUEST
 def edit_info(request, user_id): #POST REQUEST
     a_user = User.objects.get(id = user_id)
     errors = Book.objects.edit_info_validator(request.POST, request.session)    
-    if len(errors) > 0:
+    if request.POST['username'] == a_user.username and request.POST['bio'] == a_user.bio:
+            messages.success(request, "No changes made")
+            return redirect(f"/book/user/{user_id}")
+    elif len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
         return redirect(f"/book/user/{user_id}")
@@ -139,7 +143,7 @@ def edit_info(request, user_id): #POST REQUEST
         a_user.bio = request.POST["bio"]
         a_user.username = request.POST["username"]
         a_user.save()
-        messages.success(request, "Bio updated")
+        messages.success(request, "Info updated")
     return redirect(f"/book/user/{user_id}")
 
 def change_password(request, user_id): #POST REQUEST

@@ -197,6 +197,19 @@ nav button:hover, nav a:hover{
     font-size:1.5rem;
 }
 
+.messages{
+    box-sizing: border-box;
+    text-align:center;
+    color:#bf0000;
+    font-size:1.5rem;
+    padding:0 1rem 2rem 0; 
+    margin:0 auto;
+}
+
+.error::marker{
+    color:transparent
+}
+
 #add_book{
     width:25%;
     height:10%;

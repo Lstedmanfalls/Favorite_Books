@@ -9,32 +9,32 @@ class UserManager(models.Manager):
         existing_username = User.objects.filter(username = postData["username"])
         EMAIL_REGEX = re.compile(r"^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$")
         if len(postData["first_name"]) < 2:
-            errors["first_name"] = "First name must be at least 2 characters."
+            errors["first_name"] = "First name must be at least 2 characters"
         if len(postData['last_name']) < 2:
-            errors["last_name"] = "Last name must be at least 2 characters."
+            errors["last_name"] = "Last name must be at least 2 characters"
         if len(postData['username']) < 1:
-            errors["username"] = "Username is required."
+            errors["username"] = "Username is required"
         elif len (existing_username) > 0:
-            errors["duplicate_username"] = "That username is taken. Please choose a different one."
+            errors["duplicate_username"] = "That username is taken, please choose another"
         if not EMAIL_REGEX.match(postData["email"]):           
             errors["email"] = "Please enter a valid email address."
         elif len(existing_email) > 0:
-            errors["duplicate_email"] = "That email is already registered. Please login."
+            errors["duplicate_email"] = "That email is already registered, please login"
         if len(postData['password']) < 8:
-            errors["password"] = "Password must be at least 8 characters."
+            errors["password"] = "Password must be at least 8 character"
         elif postData["password"] != postData["password_confirm"]:
-            errors["password_confirm"] = "Passwords do not match."
+            errors["password_confirm"] = "Passwords do not match"
         return errors
     
     def login_validator(self, postData):
         errors = {}
         existing_email = User.objects.filter(email = postData["email"])
         if len(existing_email) < 1:
-            errors["not_found"] = "Email not found. Please register for an account."
+            errors["not_found"] = "Email not found, please register"
         else:
             user = User.objects.filter(email = postData["email"])[0]
             if not bcrypt.checkpw(postData['password'].encode(), user.password.encode()):
-                errors['invalid_password'] = "Password is incorrect."
+                errors["invalid_password"] = "Password is incorrect"
         return errors
 
 class User(models.Model):
