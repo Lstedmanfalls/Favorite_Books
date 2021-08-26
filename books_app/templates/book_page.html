@@ -21,10 +21,10 @@
             </div>
         </nav>
         <div id="wrapper">
-            <h1>{{a_book.title}}</h1>
             <div id="books">
-                <p>{{a_book.genre}}</p>
-                <h2>{{a_book.description}}</h2>
+                <h1>{{a_book.title}}</h1>
+                <h2>{{a_book.genre}}</h2>
+                <p>{{a_book.description}}</p>
                 {% if this_user in favorited_by %}
                 <form action="{{a_book.id}}/unfavorite_bookpage" method="POST">
                 {% csrf_token %}
@@ -51,6 +51,7 @@
             </div>
             {% if this_user.id == user_who_uploaded.id %}
             <div id="edit">
+                <h2>Edit Book</h2>
                 <form action="{{a_book.id}}/update_book" method="POST">
                 {% csrf_token %}
                     <input name="id" type="hidden" value ={{a_book.id}}> 
@@ -62,22 +63,22 @@
                     <textarea name="description">{{a_book.description}}</textarea>
                     <button type="submit">Update</button>
                 </form>
+                {% if messages %}
                 <div id ="messages">
-                    {% if messages %}
-                    {% for message in messages %}    
+                    {% for message in messages %}
                     <p class="messages">    
                     {{ message }}   
                     </p>
                     {% endfor %}
-                    {% endif %}
                 </div>
+                {% endif %}
+            </div>
                 <div id="delete">
                     <form action="{{a_book.id}}/destroy_book" method="POST">
                     {% csrf_token %}
-                        <button type="submit">Delete This Book</button>
+                        <button type="submit">Delete Book</button>
                     </form>
                 </div>
-            </div>
             {% endif %}
         </div>
         <footer>
