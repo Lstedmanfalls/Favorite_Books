@@ -14,3 +14,7 @@
 <img src="screenshots/public_book_page_pc.JPG">
 <h3>Public Book Profile Mobile</h3>
 <img src="screenshots/public_book_page_mobile.JPG">
+<h3>Own Book Profile PC</h3>
+<img src="screenshots/own_book_page_pc.JPG">
+<h3>Own Book Profile Mobile</h3>
+<img src="screenshots/own_book_page_mobile.JPG">
