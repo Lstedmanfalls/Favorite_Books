@@ -19,3 +19,11 @@
 <img src="screenshots/own_book_page_pc.JPG">
 <h3>Own Book Profile Mobile</h3>
 <img src="screenshots/own_book_page_mobile.JPG">
+<h3>Public User Profile PC</h3>
+<img src="screenshots/public_user_profile_pc.JPG">
+<h3>Public User Profile Mobile</h3>
+<img src="screenshots/public_user_profile_mobile.JPG">
+<h3>Own User Profile PC</h3>
+<img src="screenshots/own_user_profile_pc.JPG">
+<h3>Own User Profile Mobile</h3>
+<img src="screenshots/own_user_profile_mobile.JPG">

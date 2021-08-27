@@ -85,7 +85,7 @@ def update_book(request, book_id): #POST REQUEST
     errors = Book.objects.update_validator(request.POST)
     if request.POST['title'] == a_book.title and request.POST['genre'] == a_book.genre and request.POST['description'] == a_book.description:
         messages.success(request, "No changes made")
-        return redirect(f"/book/{book_id}")    
+        return redirect(f"/book/{book_id}")
     elif len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)

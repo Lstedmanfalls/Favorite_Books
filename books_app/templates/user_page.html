@@ -25,46 +25,52 @@
                 <h1>{{a_user.username}}'s Profile</h1>
                 <p>Member since {{a_user.created_at}}</p>
                 <p>{{a_user.bio}}</p>
-                <h2>Favorite Books ({{favorite_count}})</h2>
+                <h2>My Favorite Books <span class="count">({{favorite_count}})</span></h2>
                 {% for book in favorited_books %} 
-                <p>
+                <p id="user_favorite" class ="user_info">
                     <a href ="/book/{{book.id}}">{{book.title}}</a>
                 </p>
                 {% endfor %}
-                <h2>Uploaded Books ({{book_count}})</h2>
+                <h2 id="uploaded">My Uploaded Books <span class="count">({{book_count}})</span></h2>
                 {% for book in uploaded_books %} 
-                <p>
+                <p class ="user_info">
                     <a href ="/book/{{book.id}}">{{book.title}}</a>
                 </p>
                 {% endfor %}
             </div>
             {% if this_user.id == a_user.id %}
-            <div id="edit">
-                <form action="/book/user/{{a_user.id}}/edit_info" method="POST">
-                {% csrf_token %}
-                    <label class="label" for="username">Username: </label>
-                    <input name="username" type="text" value ="{{a_user.username}}">
-                    <label class="label" for="bio">Bio: </label>
-                    <textarea name="bio">{{a_user.bio}}</textarea>
-                    <button type="submit">Update</button>
-                </form>
-                <form action="/book/user/{{a_user.id}}/change_password" method="POST">
+            <div id ="messages">
+                {% if messages %}
+                {% for message in messages %}    
+                <p class="messages">    
+                {{ message }}   
+                </p>
+                {% endfor %}
+                {% endif %}
+            </div>
+            <div id ="update">
+                <div id="edit">
+                    <h2>Edit Profile</h2>
+                    <form action="/book/user/{{a_user.id}}/edit_info" method="POST">
                     {% csrf_token %}
-                        <label for="password">Password</label>
-                        <input name="password" type="password">
-                        <label for="password_confirm">Confirm Password</label>
-                        <input name="password_confirm" type="password">
+                        <label class="label" for="username">Username: </label>
+                        <input name="username" type="text" value ="{{a_user.username}}">
+                        <label class="label" for="bio">Bio: </label>
+                        <textarea name="bio">{{a_user.bio}}</textarea>
                         <button type="submit">Update</button>
                     </form>
-                    <div id ="messages">
-                        {% if messages %}
-                        {% for message in messages %}    
-                        <p class="messages">    
-                        {{ message }}   
-                        </p>
-                        {% endfor %}
-                        {% endif %}
-                    </div>
+                </div>
+                <div id="password">
+                    <h2>Change Password</h2>
+                    <form action="/book/user/{{a_user.id}}/change_password" method="POST">
+                        {% csrf_token %}
+                            <label class ="label" for="password">Password</label>
+                            <input name="password" type="password">
+                            <label class ="label" for="password_confirm">Confirm Password</label>
+                            <input name="password_confirm" type="password">
+                            <button type="submit">Update</button>
+                        </form>
+                </div>
             </div>
             {% endif %}
         </div>   

@@ -227,11 +227,21 @@ h2{
     align-self: center;
 }
 
+#messages{
+    box-sizing: border-box;
+    text-align:center;
+    color:red;
+    font-size:1.8rem;
+    padding-top:1.5rem; 
+    margin:0 auto;
+}
+
 #delete form{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 
 #delete button{
     background-color:rgba(172, 99, 55, .6);
