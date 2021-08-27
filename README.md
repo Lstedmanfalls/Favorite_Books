@@ -1,7 +1,8 @@
 <h1>Favorite Books App</h1>
 <h2>Responsive social media web app for adding, favoriting, and reviewing books</h2>
-<p> Admin / user login and registration with password hashing and salting, user-specific views, user-added content / favoriting / reviewing / editing, form validations, and user and book profiles
-<p> Created with Python, Django MVC / ORM / templating, SQLite, bcrypt, CSS, and HTML</p>
+<p> 
+    Admin / user login and registration with password salting and hashing through bcrypt, user-specific views, user-added content / favoriting / reviewing / editing, form validations, and user and book profiles.
+</p>
 <h3>Login PC</h3>
 <img src="screenshots/login_pc.JPG">
 <h3>Login Mobile</h3>
