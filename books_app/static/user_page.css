@@ -101,6 +101,53 @@ nav button:hover, nav a:hover{
     min-height:auto;
 }
 
+#user{
+    background-color:rgba(220, 208, 201, .8);
+    border:1px solid black;
+    width:50%;
+    padding:3rem 3rem 3rem 3rem;
+    display: flex;
+    flex-direction: column;
+}
+
+#user{
+    margin-bottom:4rem;
+}
+
+@media only screen and (max-width:768px){
+#user {
+    width:100%;
+}
+}
+
+h1{
+font-size:4.5rem;
+padding-bottom:1.5rem;
+text-align: center;
+color:#ac6337;
+}
+
+h2{
+    font-size:3rem;
+    font-weight: bold;
+    padding-bottom: 1rem;
+}
+
+#user > p:first-of-type{
+    text-align: center;
+    font-size:1.5rem;
+    padding-bottom:1rem;
+}
+
+#user > p:nth-of-type(2){
+    font-size: 2.5rem;
+    font-weight: normal;
+    text-align: center;
+    line-height: 1.4;
+    padding:0 3rem;
+    font-style: italic;
+}
+
 footer{
     text-align: center;
     font-size:1.5rem;
