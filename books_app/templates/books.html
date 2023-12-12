@@ -12,7 +12,7 @@
 <body>
     <div id="container">
         <nav>
-            <p>Welcome, {{this_user.first_name}}!</p>
+            <p>Welcome, {{user.first_name}}!</p>
             <div id ="nav_actions">
                 <form action="/logout" method="POST">
                 {% csrf_token %}
@@ -26,14 +26,14 @@
         <div id="books_wrapper">
             <div id="books">
                 <h1>America's Favorite Books</h1>
-                {% for book in all_the_books %}
+                {% for book in books %}
                 <div>
                     <a href= "{{book.id}}"><h2>{{book.title}}</h2></a>
                     <p>{{book.genre}}</p>
                     <p>Added by 
                         <a href= "user/{{book.uploaded_by.id}}">{{book.uploaded_by.username}}</a>
                     </p>
-                    {% if book in this_user.books_favorited.all %}
+                    {% if book in user.books_favorited.all %}
                     <form action="{{book.id}}/unfavorite_homepage" method="POST">
                     {% csrf_token %}
                         <button type="submit">Remove From My favorites</button>

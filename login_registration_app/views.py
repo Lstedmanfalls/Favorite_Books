@@ -3,33 +3,36 @@ from django.contrib import messages
 from .models import User, UserManager
 import bcrypt
 
-def index(request): #GET REQUEST
+def index(request):
     context = {
-    "all_the_users": User.objects.all(),
+    "users": User.objects.all(),
     }
     return render(request, "index.html", context)
 
-def register(request): #POST REQUEST
+def register(request):
+    if request.method != "POST":
+        return redirect("/")
     errors = User.objects.register_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
         return redirect("/")
-    elif request.method != "POST":
-        return redirect("/")
-    elif request.method == "POST":
-            password = request.POST['password']
-            pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-            user_id = User.objects.create(first_name = request.POST["first_name"], last_name = request.POST["last_name"], username = request.POST["username"], email = request.POST['email'], password=pw_hash)
-            request.session['user_id'] = user_id.id
+
+    password = request.POST['password']
+    pw_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+    user_id = User.objects.create(first_name = request.POST["first_name"], last_name = request.POST["last_name"], username = request.POST["username"], email = request.POST['email'], password=pw_hash)
+    request.session['user_id'] = user_id.id
     return redirect("/book")
 
-def login(request): #POST REQUEST
+def login(request):
+    if request.method != "POST":
+        return redirect("/")
     errors = User.objects.login_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
         return redirect("/")
+    
     user = User.objects.filter(email=request.POST["email"])
     if user: 
         logged_user = user[0] 
@@ -37,11 +40,9 @@ def login(request): #POST REQUEST
             request.session["user_id"] = logged_user.id
             return redirect("/book")
         return redirect("/")
-    elif request.method != "POST":
-        return redirect("/")
     return redirect("/")
 
-def logout(request): #POST REQUEST
+def logout(request):
     if request.method != "POST":
         return redirect("/")
     request.session.flush()

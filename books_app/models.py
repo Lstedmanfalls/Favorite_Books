@@ -17,12 +17,12 @@ class BookManager(models.Manager):
         return errors
 
     def update_validator(self, postData):
-        this_book = Book.objects.get(id = postData['id'])
+        book = Book.objects.get(id = postData['id'])
         existing_books = Book.objects.filter(title = postData['title'])
         errors = {}
         if len(postData['title']) < 1:
             errors['title'] = "Title is required"
-        elif len(existing_books) > 0 and existing_books[0].id != this_book.id:
+        elif len(existing_books) > 0 and existing_books[0].id != book.id:
             errors['duplicate'] = "That book already exists, please choose another"
         if len(postData['genre']) < 3:
             errors['genre'] = "Genre must be at least 3 characters"
@@ -31,14 +31,14 @@ class BookManager(models.Manager):
         return errors
     
     def edit_info_validator(self, postData, session):
-        this_user = User.objects.get(id = session['user_id'])
+        user = User.objects.get(id = session['user_id'])
         existing_username = User.objects.filter(username = postData["username"])            
         errors = {}
         if len (postData['bio']) > 0 and len (postData['bio']) < 10:
             errors["bio"] = "Bio may be blank or at least 10 characters"
         if len(postData['username']) < 1:
             errors["username"] = "Username is required"
-        elif len(existing_username) and existing_username[0].id != this_user.id:
+        elif len(existing_username) and existing_username[0].id != user.id:
             errors['duplicate'] = "That username is already taken"
         return errors
     

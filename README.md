@@ -3,6 +3,13 @@
 <p> 
     Admin / user login and registration with password salting and hashing through bcrypt, user-specific views, user-added content / favoriting / reviewing / editing, form validations, and user and book profiles.
 </p>
+<h3>To Run:</h3>
+<ol>
+<li>Install the required packages with `pip install -r requirements.txt`</li>
+<li>Spin up a local SQLlite database and apply the migrations with `python manage.py migrate`</li>
+<li>Run the app locally with `python manage.py runserver`</li>
+</ol>
+
 <h3>Login PC</h3>
 <img src="screenshots/login_pc.JPG">
 <h3>Login Mobile</h3>
